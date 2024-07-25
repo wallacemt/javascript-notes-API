@@ -17,11 +17,11 @@ userSchema.pre('save', function(next){
                 next(err);
             }else{
                 this.password = hashedPassword;
-                next();
+                next(); 
             }
         }
         )
-    }
+    } 
 })
 
 module.exports = mongoose.model("User", userSchema)
