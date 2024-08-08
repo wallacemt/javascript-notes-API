@@ -1,14 +1,21 @@
 {
   "name": "javascript-note-api",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node app.js",
     "dev": "nodemon start"
   },
-  "engines": {
-    "node": "20.15.1"
-  },
+  "keywords": [],
+  "author": {
+    "name": "Wallace",
+    "email": "wallacesantanak0@gmail.com"},
+  "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cookie-parser": "~1.4.4",
