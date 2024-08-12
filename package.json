@@ -13,7 +13,8 @@
   "keywords": [],
   "author": {
     "name": "Wallace",
-    "email": "wallacesantanak0@gmail.com"},
+    "email": "wallacesantanak0@gmail.com"
+  },
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -25,6 +26,7 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "node-fetch": "^3.3.2"
   }
 }
