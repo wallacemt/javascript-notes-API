@@ -1,20 +1,15 @@
-let express = require('express');
+const express = require('express');
+const axios = require;
 let router = express.Router();
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const fetch = require('node-fetch');
 const withAuth = require("../middlewares/auth")
 require("dotenv").config()
-const secret = process.env.JWT_TOKEN;
-const recaptchaSecret = '0x4AAAAAAAhGuwmGmdeGv9LDobkJigPOmQs';
 
-const verifyRecaptcha = async (captchaValue) => {
-  const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${captchaValue}`, {
-    method: 'POST'
-  });
-  const data = await response.json();
-  return data.success;
-};
+const secret = process.env.JWT_TOKEN;
+const recaptchaScretKey = process.env.RECAPTCHA_SECRET_KEY
+
+
 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -29,19 +24,18 @@ router.post("/register", async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const { email, password, recaptchaValue } = req.body;
+  const { email, password, recaptchaToken } = req.body;
 
-  // Verificar se o token do reCAPTCHA foi enviado e é válido
-  if (!recaptchaValue) {
-    return res.status(400).json({ error: "reCAPTCHA verification failed" });
-  }
+  const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaScretKey}&response=${recaptchaToken}`;
 
-  const recaptchaVerified = await verifyRecaptcha(recaptchaValue);
-  if (!recaptchaVerified) {
-    return res.status(400).json({ error: "reCAPTCHA verification failed" });
-  }
-  
   try {
+    const response = await axios.post(verifyUrl);
+    const { sucess } = response.data;
+
+    if (!sucess) {
+      return res.status(401).json({ error: "Please verify you are not a robot" });
+    }
+
     let user = await User.findOne({ email });
     if (!user) {
       res.status(401).json({ error: "Incorrect email or password" });
