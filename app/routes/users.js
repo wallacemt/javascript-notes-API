@@ -7,7 +7,7 @@ const withAuth = require("../middlewares/auth")
 require("dotenv").config()
 
 const secret = process.env.JWT_TOKEN;
-const recaptchaScretKey = process.env.RECAPTCHA_SECRET_KEY
+const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY
 
 
 
@@ -26,14 +26,14 @@ router.post("/register", async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password, recaptchaToken } = req.body;
 
-  const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaScretKey}&response=${recaptchaToken}`;
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${recaptchaToken}`;
 
   try {
-    const response = await axios.post(verifyUrl);
-    const { sucess } = response.data;
+    const response = await axios.post(verificationUrl);
+    const { success } = response.data;
 
-    if (!sucess) {
-      return res.status(401).json({ error: "Please verify you are not a robot" });
+    if (!success) {
+      return res.status(400).json({ error: "Failed reCAPTCHA verification" });
     }
 
     let user = await User.findOne({ email });
