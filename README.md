@@ -36,8 +36,6 @@ cd javascript_note_api
 ```
 ## 📦 Instale as dependências
 
-## 📦 Instale as dependências
-
 Usando npm:
 
 ```bash
