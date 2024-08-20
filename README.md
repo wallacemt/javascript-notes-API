@@ -17,6 +17,12 @@ A **JavaScript Notes API** é o backend da aplicação **JavaScript Notes**, que
 - **morgan**: Middleware de logging de requisições HTTP.
 - **node-fetch**: Para realizar requisições HTTP, se necessário.
 
+## Recursos
+
+- Autenticação de usuários com JWT.
+- Armazenamento e gerenciamento de notas.
+- Conexão com banco de dados MongoDB.
+  
 ## 📋 Requisitos
 
 - Node.js (versão 20.x)
